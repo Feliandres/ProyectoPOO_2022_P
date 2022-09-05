@@ -33,7 +33,7 @@ public class Productos_SQL {
 
     public List verProductos(){
         List<Productos> verProductos = new ArrayList();
-        String SQL = "SELECT p.cod_prod, pr.ruc_prov AS ruc_prov, p.* FROM proveedores pr INNER JOIN productos p ON pr.ruc_prov = p.ruc_prov ORDER BY p.cod_prod DESC";
+        String SQL = "SELECT p.cod_prod, pr.ruc_prov AS ruc_prov, p.* FROM proveedores pr INNER JOIN productos p ON pr.ruc_prov = p.ruc_prov ORDER BY p.cod_prod";
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);

@@ -204,7 +204,7 @@ public class FarmaciaSistema extends JFrame{
 
         setContentPane(mainPanel);
         setTitle("Farmacia Real Audiencia");
-        setSize(800, 500);
+        setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null); // centrar la pantalla
