@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Farmacia_Principal:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Farmacia_Principal_jar</output-path>
+    <root id="archive" name="Farmacia_Principal.jar">
+      <element id="module-output" name="Farmacia_Principal" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/mysql-connector-java-8.0.30.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/itextpdf-5.5.13.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/jcalendar-1.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
