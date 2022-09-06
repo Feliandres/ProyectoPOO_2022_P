@@ -1679,25 +1679,21 @@
                                   <font name="Bookshelf Symbol 7" size="14"/>
                                 </properties>
                               </component>
-                              <component id="1a197" class="javax.swing.JPasswordField" binding="pass_emp_TF">
+                              <component id="c1861" class="javax.swing.JPasswordField" binding="pass_emp_PF">
                                 <constraints>
                                   <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                     <preferred-size width="150" height="-1"/>
                                   </grid>
                                 </constraints>
-                                <properties>
-                                  <font name="Bookshelf Symbol 7" size="14"/>
-                                </properties>
+                                <properties/>
                               </component>
-                              <component id="32c18" class="javax.swing.JPasswordField" binding="conf_pass_emp_TF">
+                              <component id="c6bf4" class="javax.swing.JPasswordField" binding="conf_pass_emp_PF">
                                 <constraints>
                                   <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                     <preferred-size width="150" height="-1"/>
                                   </grid>
                                 </constraints>
-                                <properties>
-                                  <font name="Bookshelf Symbol 7" size="14"/>
-                                </properties>
+                                <properties/>
                               </component>
                             </children>
                           </grid>
@@ -1805,7 +1801,9 @@
             <constraints>
               <tabbedpane title="Ventas"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
             <border type="none"/>
             <children>
               <grid id="7bc18" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -1813,7 +1811,9 @@
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <grid id="40093" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -1821,7 +1821,9 @@
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="4987f" class="javax.swing.JLabel">
@@ -1829,17 +1831,21 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <font name="Bookshelf Symbol 7" size="48" style="1"/>
+                          <foreground color="-15646092"/>
                           <text value="Ventas"/>
                         </properties>
                       </component>
                     </children>
                   </grid>
                   <grid id="b3b72" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <margin top="20" left="20" bottom="20" right="20"/>
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <scrollpane id="7984b">
@@ -1860,9 +1866,11 @@
                   <grid id="f6a15" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="21c4e" class="javax.swing.JButton" binding="PDF_historial_venta_BTN">
@@ -1870,8 +1878,9 @@
                           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <background color="-16731973"/>
                           <icon value="images/pdf.png"/>
-                          <text value="Button"/>
+                          <text value=""/>
                         </properties>
                       </component>
                       <component id="a34da" class="javax.swing.JTextField" binding="id_venta_historial_TF">
@@ -1880,13 +1889,18 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <disabledTextColor color="-12828863"/>
+                          <enabled value="false"/>
+                        </properties>
                       </component>
                       <component id="8df34" class="javax.swing.JLabel" binding="id_venta_historial_Txt">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <font name="Bookshelf Symbol 7" size="14" style="1"/>
+                          <foreground color="-15646092"/>
                           <text value="VentaID: "/>
                         </properties>
                       </component>
@@ -1901,9 +1915,80 @@
             <constraints>
               <tabbedpane title="Reportes"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <grid id="833da" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="7b0b0" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="a66f9" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Bookshelf Symbol 7" size="48" style="1"/>
+                          <foreground color="-15646092"/>
+                          <text value="Reportes"/>
+                        </properties>
+                      </component>
+                      <component id="18480" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <icon value="images/analitica.png"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="36e0b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="6f625" class="javax.swing.JButton" binding="graficar_reporte_BTN">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-16731973"/>
+                          <font name="Bookshelf Symbol 7" size="14"/>
+                          <foreground color="-15646092"/>
+                          <icon value="images/reporte.png"/>
+                          <margin top="0" left="0" bottom="0" right="0"/>
+                          <text value="Graficar"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
           </grid>
           <grid id="45a33" binding="ajustesPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>

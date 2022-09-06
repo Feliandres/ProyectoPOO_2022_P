@@ -28,11 +28,11 @@ public class Clientes_SQL {
             pst.setString(4,clientes.getDireccion());
             pst.setString(5,clientes.getEmail());
             pst.setString(6,clientes.getTelefono());
-            pst.executeQuery();
+            pst.execute();
             return true;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            System.out.println(e.toString());
             return false;
         } finally {
             try {
@@ -56,7 +56,7 @@ public class Clientes_SQL {
             pst.setString(4, clientes.getEmail());
             pst.setString(5, clientes.getTelefono());
             pst.setString(6, clientes.getDni());
-            pst.executeQuery();
+            pst.execute();
             return true;
 
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class Clientes_SQL {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);
             pst.setString(1, dni);
-            pst.executeQuery();
+            pst.execute();
             return true;
         } catch (Exception e) {
             System.out.println(e.toString());

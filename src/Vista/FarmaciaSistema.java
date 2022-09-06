@@ -9,6 +9,7 @@ import Modelo.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +119,9 @@ public class FarmaciaSistema extends JFrame{
     private JButton cerrar_sesion_BTN;
     private JTextField fecha_venta_TF;
     private JComboBox ruc_prod_CB;
+    private JButton graficar_reporte_BTN;
+    private JPasswordField pass_emp_PF;
+    private JPasswordField conf_pass_emp_PF;
     private JLabel empleado_inicio_Txt;
 
 
@@ -180,7 +184,7 @@ public class FarmaciaSistema extends JFrame{
             productosButton.setEnabled(true);
             proveedoresButton.setEnabled(true);
 
-            nom_emp_inicio_Txt.setText(nombre+" "+apellido);
+            nom_emp_inicio_Txt.setText(nombre + " " + apellido);
             username_emp_inicio_Txt.setText(username);
             dni_emp_inicio_Txt.setText(dni);
             email_emp_inicio_Txt.setText(email);
@@ -196,7 +200,7 @@ public class FarmaciaSistema extends JFrame{
             productosButton.setEnabled(false);
             proveedoresButton.setEnabled(false);
 
-            nom_emp_inicio_Txt.setText(nombre+" "+apellido);
+            nom_emp_inicio_Txt.setText(nombre + " " + apellido);
             username_emp_inicio_Txt.setText(username);
             dni_emp_inicio_Txt.setText(dni);
             email_emp_inicio_Txt.setText(email);
@@ -212,14 +216,14 @@ public class FarmaciaSistema extends JFrame{
             productosButton.setEnabled(true);
             proveedoresButton.setEnabled(true);
 
-            nom_emp_inicio_Txt.setText(nombre+" "+apellido);
+            nom_emp_inicio_Txt.setText(nombre + " " + apellido);
             username_emp_inicio_Txt.setText(username);
             dni_emp_inicio_Txt.setText(dni);
             email_emp_inicio_Txt.setText(email);
             telf_emp_inicio_Txt.setText(telefono);
             rol_emp_inicio_Txt.setText("Administrador");
         } else {
-            nom_emp_inicio_Txt.setText(nombre+" "+apellido);
+            nom_emp_inicio_Txt.setText(nombre + " " + apellido);
             username_emp_inicio_Txt.setText(username);
             dni_emp_inicio_Txt.setText(dni);
             email_emp_inicio_Txt.setText(email);
@@ -274,8 +278,8 @@ public class FarmaciaSistema extends JFrame{
                 verTablaEmpleados();
                 cargarComboBoxEmpleados();
                 limpiarEmpleados();
-                pass_emp_TF.setEnabled(true);
-                conf_pass_emp_TF.setEnabled(true);
+                pass_emp_PF.setEnabled(true);
+                conf_pass_emp_PF.setEnabled(true);
                 crudTabbedPanel.setSelectedIndex(5);
             }
         });
@@ -313,6 +317,13 @@ public class FarmaciaSistema extends JFrame{
                 crudTabbedPanel.setSelectedIndex(3);
             }
         });
+        // BOTON REPORTES
+        reportesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                crudTabbedPanel.setSelectedIndex(7);
+            }
+        });
         // BOTON AJUSTES
         ajustesButton.addActionListener(new ActionListener() {
             @Override
@@ -333,20 +344,20 @@ public class FarmaciaSistema extends JFrame{
         guardar_emp_BTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (nom_emp_TF.getText().equals("") || email_emp_TF.getText().equals("") || pass_emp_TF.getText().equals("")
-                        || conf_pass_emp_TF.getText().equals("") || apel_emp_TF.getText().equals("") || username__emp_TF.getText().equals("")
-                        || telf_emp_TF.getText().equals("") || dni_cli_TF.getText().equals("")) {
+                if (nom_emp_TF.getText().equals("") || email_emp_TF.getText().equals("") || String.valueOf(pass_emp_PF.getPassword()).equals("")
+                        || String.valueOf(conf_pass_emp_PF.getPassword()).equals("") || apel_emp_TF.getText().equals("") || username__emp_TF.getText().equals("")
+                        || telf_emp_TF.getText().equals("") || dni_emp_TF.getText().equals("") || rol_emp_CB.getSelectedItem().equals("")) {
                     JOptionPane.showMessageDialog(null, "Todo los campos son requeridos");
                 } else {
                     String email = email_emp_TF.getText();
-                    String pass = pass_emp_TF.getText();
+                    String pass = String.valueOf(pass_emp_PF.getPassword());
                     String nombre = nom_emp_TF.getText();
                     String apellido = apel_emp_TF.getText();
                     String telefono = telf_emp_TF.getText();
-                    String dni = dni_cli_TF.getText();
+                    String dni = dni_emp_TF.getText();
                     String username = username__emp_TF.getText();
-                    String conf_pass = conf_pass_emp_TF.getText();
-                    String rol = rol_emp_CB.getSelectedItem().toString().substring(0,4).toLowerCase();
+                    String conf_pass = String.valueOf(conf_pass_emp_PF.getPassword());
+                    String rol = rol_emp_CB.getSelectedItem().toString().substring(0, 4).toLowerCase();
                     empleados.setNombre(nombre);
                     empleados.setEmail(email);
                     empleados.setPassword(pass);
@@ -358,8 +369,70 @@ public class FarmaciaSistema extends JFrame{
                     empleados.setRol(rol);
                     empleados_sql.registrarEmpleados(empleados);
                     LimpiarTable();
+                    limpiarEmpleados();
                     verTablaEmpleados();
                     JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                }
+            }
+        });
+        // BOTON MODIFICAR - PANEL EMPLEADOS
+        modificar_emp_BTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ("".equals(dni_emp_TF.getText())) {
+                    JOptionPane.showMessageDialog(null, "Seleecione una fila");
+                } else {
+                    if (!"".equals(dni_emp_TF.getText()) || !"".equals(nom_emp_TF.getText()) || !"".equals(apel_emp_TF.getText()) || !"".equals(username__emp_TF.getText()) || !"".equals(telf_emp_TF.getText()) || !"".equals(email_emp_TF.getText())
+                            || !"".equals(String.valueOf(pass_emp_PF.getPassword())) || !"".equals(String.valueOf(conf_pass_emp_PF.getPassword())) || !"".equals(rol_emp_CB.getSelectedItem())) {
+
+                        empleados.setDni(dni_emp_TF.getText());
+                        empleados.setNombre(nom_emp_TF.getText());
+                        empleados.setApellido(apel_emp_TF.getText());
+                        empleados.setUsername(username__emp_TF.getText());
+                        empleados.setTelefono(telf_emp_TF.getText());
+                        empleados.setEmail(email_emp_TF.getText());
+                        empleados.setPassword(String.valueOf(pass_emp_PF.getPassword()));
+                        empleados.setConfirm_password(String.valueOf(conf_pass_emp_PF.getPassword()));
+                        empleados.setRol(rol_emp_CB.getSelectedItem().toString().substring(0,4).toLowerCase());
+                        empleados_sql.modificarEmpleado(empleados);
+                        JOptionPane.showMessageDialog(null, "Empleado Modificado");
+                        LimpiarTable();
+                        verTablaEmpleados();
+                        limpiarEmpleados();
+                        modificar_emp_BTN.setEnabled(false);
+                        eliminar_emp_BTN.setEnabled(false);
+                        guardar_emp_BTN.setEnabled(true);
+                    }
+                }
+            }
+        });
+        // BOTON CREAR - PANEL EMPLEADOS
+        crear_emp_BTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limpiarEmpleados();
+                eliminar_emp_BTN.setEnabled(false);
+                modificar_emp_BTN.setEnabled(false);
+            }
+        });
+        // BOTON ELIMINAR - PANEL EMPLEADOS
+        eliminar_emp_BTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!"".equals(dni_emp_TF.getText())) {
+                    int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar");
+                    if (pregunta == 0) {
+                        String dni = String.valueOf(dni_emp_TF.getText());
+                        empleados_sql.eliminarEmpleados(dni);
+                        LimpiarTable();
+                        limpiarEmpleados();
+                        verTablaEmpleados();
+                        modificar_prod_BTN.setEnabled(false);
+                        eliminar_prod_BTN.setEnabled(false);
+                        guardar_prod_BTN.setEnabled(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecciona una fila");
                 }
             }
         });
@@ -612,15 +685,14 @@ public class FarmaciaSistema extends JFrame{
         });
 
 
-
-
-
         // INTERACCION TABLA CLIENTES
         clientesTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 interaccionTablaClientes();
+                eliminar_cli_BTN.setEnabled(true);
+                modificar_cli_BTN.setEnabled(true);
             }
         });
 
@@ -652,10 +724,19 @@ public class FarmaciaSistema extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 interaccionTablaEmpleados();
+                eliminar_emp_BTN.setEnabled(true);
             }
         });
-
-
+        // INTERACCION TABLA HISTORIAL VENTA
+        historial_ventaTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int fila = historial_ventaTable.rowAtPoint(e.getPoint());
+                id_venta_historial_TF.setText(historial_ventaTable.getValueAt(fila, 0).toString());
+            }
+        });
+        // EVENTO ENTER CODIGO - PANEL NUEVA VENTA
         cod_venta_TF.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -680,14 +761,6 @@ public class FarmaciaSistema extends JFrame{
                 }
             }
         });
-
-/*        nom_venta_TF.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-                eventos.textKeyPress(e);
-            }
-        });*/
 
         // EVENTO ENTER CANTIDAD - PANEL NUEVA VENTA
         cantidad_venta_TF.addKeyListener(new KeyAdapter() {
@@ -739,7 +812,7 @@ public class FarmaciaSistema extends JFrame{
                 }
             }
         });
-
+        // EVENTO SOLO NUMEROS EN CANTIDAD - PANEL NUEVA VENTA
         cantidad_venta_TF.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -747,7 +820,7 @@ public class FarmaciaSistema extends JFrame{
                 eventos.numberKeyPress(e);
             }
         });
-
+        // BOTON ELIMINAR VENTA - PANEL NUEVA VENTA
         eliminar_venta_BTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -757,7 +830,7 @@ public class FarmaciaSistema extends JFrame{
                 cod_venta_TF.requestFocus();
             }
         });
-
+        // EVENTO BUSCAR DNI - PANEL NUEVA VENTA
         dni_cli_venta_TF.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -767,7 +840,7 @@ public class FarmaciaSistema extends JFrame{
                         String dni = String.valueOf(dni_cli_venta_TF.getText());
                         clientes = clientes_sql.buscarClientes(dni);
                         if (clientes.getNombre() != null) {
-                            nom_cli_venta_TF.setText(clientes.getNombre()+" "+clientes.getApellido());
+                            nom_cli_venta_TF.setText(clientes.getNombre() + " " + clientes.getApellido());
                         } else {
                             dni_cli_venta_TF.setText("");
                             JOptionPane.showMessageDialog(null, "El cliente no existe");
@@ -776,7 +849,7 @@ public class FarmaciaSistema extends JFrame{
                 }
             }
         });
-
+        // BOTON GENERAR FACTURA - PANEL NUEVA VENTA
         generar_factura_venta_BTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -804,6 +877,7 @@ public class FarmaciaSistema extends JFrame{
                 login.setVisible(true);
             }
         });
+        // BOTON PDF - PANEL HISTORIAL VENTA
         PDF_historial_venta_BTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -815,14 +889,16 @@ public class FarmaciaSistema extends JFrame{
                 }
             }
         });
-        historial_ventaTable.addMouseListener(new MouseAdapter() {
+        // BOTON GRAFICAR - PANEL REPORTES
+        graficar_reporte_BTN.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int fila = historial_ventaTable.rowAtPoint(e.getPoint());
-                id_venta_historial_TF.setText(historial_ventaTable.getValueAt(fila, 0).toString());
+            public void actionPerformed(ActionEvent e) {
+                Reportes.Graficar(String.valueOf(fechaActual));
             }
         });
+
+
+
     }
 
     // FUNCIONES LIMPIAR CONTENIDO DE LAS JTABLES
@@ -856,8 +932,9 @@ public class FarmaciaSistema extends JFrame{
         username__emp_TF.setText("");
         telf_emp_TF.setText("");
         email_emp_TF.setText("");
-        pass_emp_TF.setText("");
-        conf_pass_emp_TF.setText("");
+        pass_emp_PF.setText("");
+        conf_pass_emp_PF.setText("");
+        rol_emp_CB.setSelectedItem(null);
     }
     private void limpiarVenta() {
         cod_venta_TF.setText("");
@@ -865,6 +942,26 @@ public class FarmaciaSistema extends JFrame{
         cantidad_venta_TF.setText("");
         stock_venta_TF.setText("");
         precio_venta_TF.setText("");
+    }
+    private void limpiarTablaVentas() {
+        temporal = (DefaultTableModel) ventasTable.getModel();
+        int fila = ventasTable.getRowCount();
+        for (int i = 0; i < fila; i++) {
+            temporal.removeRow(0);
+        }
+        iva_venta_TF.setText("");
+        subotal_venta_TF.setText("");
+        total_venta_TF.setText("");
+    }
+    private void limpiarClienteVenta() {
+        dni_cli_venta_TF.setText("");
+        nom_cli_venta_TF.setText("");
+    }
+    public void LimpiarTable() {
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
     }
 
     // FUNCIONES PARA INTERACTUAR CON JTABLES
@@ -982,12 +1079,12 @@ public class FarmaciaSistema extends JFrame{
             con = conectar.getConnection();
             int fila = empleadosTable.getSelectedRow();
             String dni = String.valueOf(empleadosTable.getValueAt(fila,0));
-            String SQL = "SELECT dni_emp,nom_emp,apel_emp,username_emp,telf_emp,email_emp from empleados where dni_emp = ?";
+            String SQL = "SELECT * from empleados where dni_emp = ?";
 
             pst = con.prepareStatement(SQL);
             pst.setString(1,dni);
             rs = pst.executeQuery();
-
+            String rol;
             while (rs.next()){
                 dni_emp_TF.setText(dni);
                 nom_emp_TF.setText(rs.getString("nom_emp"));
@@ -995,9 +1092,16 @@ public class FarmaciaSistema extends JFrame{
                 username__emp_TF.setText(rs.getString("username_emp"));
                 telf_emp_TF.setText(rs.getString("telf_emp"));
                 email_emp_TF.setText(rs.getString("email_emp"));
-                pass_emp_TF.setEnabled(false);
-                conf_pass_emp_TF.setEnabled(false);
-                rol_emp_CB.setEnabled(false);
+                pass_emp_PF.setText(rs.getString("pass_emp"));
+                conf_pass_emp_PF.setText(rs.getString("conf_pass_emp"));
+                rol = rs.getString("cod_rol");
+                if (rol == "admi"){
+                    rol_emp_CB.setSelectedItem("ADMINISTRADOR");
+                } else if (rol == "bode") {
+                    rol_emp_CB.setSelectedItem("BODEGUERO");
+                } else {
+                    rol_emp_CB.setSelectedItem("CAJERO");
+                }
             }
 
 
@@ -1030,12 +1134,15 @@ public class FarmaciaSistema extends JFrame{
         subotal_venta_TF.setText(String.format("%.2f", totalPagar));
         iva_venta_TF.setText(String.format("%.2f",iva));
         total_venta_TF.setText(String.format("%.2f",totalFinal));
+        //totalPagar = totalFinal;
     }
     private void registrarVenta() {
         String cliente = dni_cli_venta_TF.getText();
+        String nom_cliente = nom_cli_venta_TF.getText();
         String empleado = nom_emp_inicio_Txt.getText();
         double monto = totalPagar;
         ventas.setDni_cli(cliente);
+        ventas.setNombre_cli(nom_cliente);
         ventas.setEmpleado(empleado);
         ventas.setTotal(monto);
         ventas.setFecha(fecha_venta_TF.getText());
@@ -1046,7 +1153,7 @@ public class FarmaciaSistema extends JFrame{
         for (int i = 0; i < ventasTable.getRowCount(); i++) {
             String cod_prod = String.valueOf(ventasTable.getValueAt(i, 0).toString());
             int cantidad = Integer.parseInt(ventasTable.getValueAt(i, 2).toString());
-            double precio = Double.parseDouble(ventasTable.getValueAt(i, 3).toString());
+            double precio = Double.parseDouble(ventasTable.getValueAt(i, 4).toString());
             detalle.setCod_prod(cod_prod);
             detalle.setCantidad(cantidad);
             detalle.setPrecio(precio);
@@ -1067,20 +1174,7 @@ public class FarmaciaSistema extends JFrame{
 
         }
     }
-    private void limpiarTablaVentas() {
-        temporal = (DefaultTableModel) ventasTable.getModel();
-        int fila = ventasTable.getRowCount();
-        for (int i = 0; i < fila; i++) {
-            temporal.removeRow(0);
-        }
-        iva_venta_TF.setText("");
-        subotal_venta_TF.setText("");
-        total_venta_TF.setText("");
-    }
-    private void limpiarClienteVenta() {
-        dni_cli_venta_TF.setText("");
-        nom_cli_venta_TF.setText("");
-    }
+
 
     // FUNCIONES PARA VER LAS TABLAS
     public void cargarComboBoxEmpleados () {
@@ -1218,12 +1312,6 @@ public class FarmaciaSistema extends JFrame{
         header.setBackground(new Color(0, 110, 255));
         header.setForeground(Color.white);
     }
-    public void LimpiarTable() {
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
-    }
     public void verTablaVentasHistorial() {
         List<Ventas> verVentas = ventas_sql.verVentas();
         DefaultTableModel modelo = new DefaultTableModel();
@@ -1244,6 +1332,8 @@ public class FarmaciaSistema extends JFrame{
         header.setBackground(new Color(0, 110, 255));
         header.setForeground(Color.white);
     }
+
+
 
 
 }

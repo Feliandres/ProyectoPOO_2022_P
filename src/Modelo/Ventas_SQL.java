@@ -31,7 +31,7 @@ public class Ventas_SQL {
 
     public int idVenta () {
         int id = 0;
-        String SQL = "SELECT MAX(id_venta) FROM ventas";
+        String SQL = "SELECT MAX(id_venta) FROM ventas ";
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);
@@ -47,15 +47,16 @@ public class Ventas_SQL {
     }
 
     public int crearVenta (Ventas ventas) {
-        String SQL = "INSERT INTO ventas (dni_cli,nom_emp, total_venta,fecha_venta) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO ventas (dni_cli, nom_cli, nom_emp, total_venta,fecha_venta) VALUES (?,?,?,?,?)";
 
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);
             pst.setString(1, ventas.getDni_cli());
-            pst.setString(2, ventas.getEmpleado());
-            pst.setDouble(3, ventas.getTotal());
-            pst.setString(4, ventas.getFecha());
+            pst.setString(2, ventas.getNombre_cli());
+            pst.setString(3, ventas.getEmpleado());
+            pst.setDouble(4, ventas.getTotal());
+            pst.setString(5, ventas.getFecha());
             pst.execute();
 
         } catch (Exception e) {
@@ -71,16 +72,14 @@ public class Ventas_SQL {
     }
 
     public int registrarDetalle (Detalle detalle){
-        String sql = "INSERT INTO detalle (id_venta, cod_prod, cantidad_prod, nom_prod, descrip_prod, pvp_prod) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO detalle (cod_prod, cantidad_prod, pvp_prod, id_venta) VALUES (?,?,?,?)";
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(sql);
-            pst.setInt(1, detalle.getId_venta());
-            pst.setString(2, detalle.getCod_prod());
-            pst.setInt(3, detalle.getCantidad());
-            pst.setString(4, detalle.getNom_prod());
-            pst.setString(5, detalle.getDescrip_prod());
-            pst.setDouble(4, detalle.getPrecio());
+            pst.setString(1, detalle.getCod_prod());
+            pst.setInt(2, detalle.getCantidad());
+            pst.setDouble(3, detalle.getPrecio());
+            pst.setInt(4, detalle.getId_detalle());
             pst.execute();
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -118,6 +117,7 @@ public class Ventas_SQL {
             rs = pst.executeQuery();
             while (rs.next()) {
                 Ventas ventas = new Ventas();
+                ventas.setId_venta(rs.getInt("id_venta"));
                 ventas.setDni_cli(rs.getString("dni_cli"));
                 ventas.setNombre_cli(rs.getString("nom_cli"));
                 ventas.setEmpleado(rs.getString("nom_emp"));
@@ -141,7 +141,7 @@ public class Ventas_SQL {
             if (rs.next()) {
                 ventas.setId_venta(rs.getInt("id_venta"));
                 ventas.setDni_cli(rs.getString("dni_cli"));
-                ventas.setTotal(rs.getDouble("total"));
+                ventas.setTotal(rs.getDouble("total_venta"));
                 ventas.setEmpleado(rs.getString("nom_emp"));
                 ventas.setFecha(rs.getString("fecha_venta"));
             }
@@ -269,7 +269,7 @@ public class Ventas_SQL {
                 pst.setInt(1, idventa);
                 rs = pst.executeQuery();
                 while (rs.next()) {
-                    double subTotal = rs.getInt("cantidad_prod") * rs.getDouble("pvp_prod");
+                    double subTotal = rs.getInt("cantidad_prod") * rs.getDouble("pvp_prod") ;
                     tabla.addCell(rs.getString("cantidad_prod"));
                     tabla.addCell(rs.getString("nom_prod"));
                     tabla.addCell(rs.getString("pvp_prod"));
@@ -282,7 +282,7 @@ public class Ventas_SQL {
             doc.add(tabla);
             Paragraph info = new Paragraph();
             info.add(Chunk.NEWLINE);
-            info.add("Total S/: " + total);
+            info.add("Total S/: " + total); // como cambio el total
             info.setAlignment(Element.ALIGN_RIGHT);
             doc.add(info);
             Paragraph firma = new Paragraph();

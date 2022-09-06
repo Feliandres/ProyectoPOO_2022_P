@@ -63,7 +63,6 @@ public class Empleados_SQL {
             return false;
         }
     }
-
     public List verEmpleados (){
         List<Empleados> verEmpleados = new ArrayList();
         String sql = "SELECT * FROM empleados";
@@ -89,4 +88,51 @@ public class Empleados_SQL {
         }
         return verEmpleados;
     }
+
+    public boolean modificarEmpleado (Empleados empleados) {
+        String sql = "UPDATE empleados SET nom_emp=?, apel_emp=?, username_emp = ? ,telf_emp =?, email_emp=?, pass_emp=?, conf_pass_emp=?, cod_rol=? WHERE dni_emp=?";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, empleados.getNombre());
+            pst.setString(2, empleados.getApellido());
+            pst.setString(3, empleados.getUsername());
+            pst.setString(4, empleados.getTelefono());
+            pst.setString(5, empleados.getEmail());
+            pst.setString(6, empleados.getPassword());
+            pst.setString(7, empleados.getConfirm_password());
+            pst.setString(8, empleados.getRol());
+            pst.setString(9, empleados.getDni());
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+
+    public boolean eliminarEmpleados(String dni_emp){
+        String SQL = "DELETE FROM empleados WHERE dni_emp = ?";
+        try {
+            pst = con.prepareStatement(SQL);
+            pst.setString(1, dni_emp);
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+
 }
