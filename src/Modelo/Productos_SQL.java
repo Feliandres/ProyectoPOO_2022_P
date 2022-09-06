@@ -75,15 +75,15 @@ public class Productos_SQL {
     }
 
     public boolean modificarProductos(Productos productos){
-        String sql = "UPDATE productos SET cod_prod=?, nom_prod=?, ruc_prov=?, descrip_prod = ? ,stock_prod =?, pvp_prod=? WHERE cod_prod=?";
+        String sql = "UPDATE productos SET nom_prod=?, ruc_prov=?, descrip_prod = ? ,stock_prod =?, pvp_prod=? WHERE cod_prod=?";
         try {
             pst = con.prepareStatement(sql);
-            pst.setString(1, productos.getCodigo());
-            pst.setString(2, productos.getNombre());
-            pst.setString(3, productos.getRuc_prov());
-            pst.setString(4, productos.getDescripcion());
-            pst.setInt(5, productos.getStock());
-            pst.setDouble(6, productos.getPVP());
+            pst.setString(1, productos.getNombre());
+            pst.setString(2, productos.getRuc_prov());
+            pst.setString(3, productos.getDescripcion());
+            pst.setInt(4, productos.getStock());
+            pst.setDouble(5, productos.getPVP());
+            pst.setString(6, productos.getCodigo());
             pst.execute();
             return true;
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class Productos_SQL {
     }
     public Productos buscarCodigo(String codigo){
         Productos productos = new Productos();
-        String SQL = "SELECT pr.ruc_prov AS ruc_prov, p.* FROM proveedores pr INNER JOIN productos p ON p.proveedor = pr.ruc_prov WHERE p.cod_prod = ?";
+        String SQL = "SELECT pr.ruc_prov AS ruc_prov, p.* FROM proveedores pr INNER JOIN productos p ON p.ruc_prov = pr.ruc_prov WHERE p.cod_prod = ?";
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);

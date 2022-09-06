@@ -14,7 +14,7 @@ public class Empleados_SQL {
 
     public Empleados login (String email, String pass, String rol){
         Empleados login = new Empleados();
-        String SQL = "SELECT email_emp, pass_emp, cod_rol FROM empleados WHERE email_emp = ? AND pass_emp = ? AND cod_rol = ?";
+        String SQL = "SELECT * FROM empleados WHERE email_emp = ? AND pass_emp = ? AND cod_rol = ?";
         try {
             con = conectar.getConnection();
             pst = con.prepareStatement(SQL);
@@ -24,12 +24,18 @@ public class Empleados_SQL {
             rs= pst.executeQuery();
             if (rs.next()) {
 
-                //login.setNombre(rs.getString("nom_emp"));
                 login.setEmail(rs.getString("email_emp"));
                 login.setPassword(rs.getString("pass_emp"));
                 login.setRol(rs.getString("cod_rol"));
+                login.setNombre(rs.getString("nom_emp"));
+                login.setApellido(rs.getString("apel_emp"));
+                login.setUsername(rs.getString("username_emp"));
+                login.setUsername(rs.getString("username_emp"));
+                login.setTelefono(rs.getString("telf_emp"));
+                login.setDni(rs.getString("dni_emp"));
 
             }
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }

@@ -44,6 +44,8 @@ public class Login extends JFrame {
     PreparedStatement pst;
     ResultSet rs;
 
+    public static String rol1,nombre,apellido,email1,username,dni,telefono;
+
     public Login () {
 
         setContentPane(loginPanel);
@@ -82,9 +84,17 @@ public class Login extends JFrame {
             // System.out.println(email + pass + rol);
             if (empleados.getEmail()!= null && empleados.getPassword() != null) {
                 JOptionPane.showMessageDialog(null,"Inicio de Sesion Correcto");
-                FarmaciaSistema login = new FarmaciaSistema();
-                login.setVisible(true);
-                Login.this.setVisible(false);
+
+                rol1 = empleados.getRol();
+                nombre = empleados.getNombre();
+                apellido = empleados.getApellido();
+                email1 = empleados.getEmail();
+                telefono = empleados.getTelefono();
+                username = empleados.getUsername();
+                dni = empleados.getDni();
+                new FarmaciaSistema(rol1,nombre,apellido,username,dni,telefono,email1);
+                dispose();
+
             } else {
                 JOptionPane.showMessageDialog(null, "Correo, Password o Rol incorrectos");
             }
@@ -120,8 +130,8 @@ public class Login extends JFrame {
 
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         Login login = new Login();
-    }
+    }*/
 
 }

@@ -83,8 +83,9 @@ public class Proveedores_SQL {
             con = conectar.getConnection();
             pst = con.prepareStatement(sql);
             pst.setString(1, proveedores.getNombre());
-            pst.setString(2, proveedores.getTelefono());
-            pst.setString(3, proveedores.getDireccion());
+            pst.setString(2, proveedores.getDireccion());
+            pst.setString(3, proveedores.getTelefono());
+            pst.setString(4, proveedores.getRuc());
             pst.execute();
             return true;
         } catch (Exception e) {

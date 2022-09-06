@@ -135,12 +135,12 @@ public class Clientes_SQL {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                clientes.setDni(rs.getString("DNI"));
-                clientes.setNombre(rs.getString("Nombre"));
-                clientes.setApellido(rs.getString("Apellido"));
-                clientes.setDireccion(rs.getString("Direccion"));
-                clientes.setEmail(rs.getString("Email"));
-                clientes.setTelefono(rs.getString("Telefono"));
+                clientes.setDni(rs.getString("dni_cli"));
+                clientes.setNombre(rs.getString("nom_cli"));
+                clientes.setApellido(rs.getString("apel_cli"));
+                clientes.setDireccion(rs.getString("direc_cli"));
+                clientes.setEmail(rs.getString("email_cli"));
+                clientes.setTelefono(rs.getString("telf_cli"));
             }
 
         } catch (Exception e) {
