@@ -1,5 +1,6 @@
 # Farmacia_Principal
 Proyecto Final POO - Farmacia CRUD
+- Felipe Pazmiño
 
 # Links de youtube
 - Link parte teorica: https://www.youtube.com/watch?v=Ga8TTPp8kJc
