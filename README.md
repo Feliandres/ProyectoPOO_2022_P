@@ -1,6 +1,10 @@
 # Farmacia_Principal
 Proyecto Final POO - Farmacia CRUD
 
+# Links de youtube
+- Link parte teorica: https://www.youtube.com/watch?v=Ga8TTPp8kJc
+- Link parte practica: https://www.youtube.com/watch?v=7Ig2pW-6Vrc
+
 ## Login
 ![image](https://user-images.githubusercontent.com/85601974/188613179-728a1082-b8d4-46e6-9dd3-45aef655f0a4.png)
 ![image](https://user-images.githubusercontent.com/85601974/188613352-5779edf0-603a-419e-8308-9f920ab35a83.png)
