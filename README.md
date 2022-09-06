@@ -8,6 +8,9 @@ Proyecto Final POO - Farmacia CRUD
 
 ## Bienvenidos
 ![image](https://user-images.githubusercontent.com/85601974/188613641-525e2804-fc61-4d68-b718-66d093bb8188.png)
+![image](https://user-images.githubusercontent.com/85601974/188619453-79fc752e-c58f-4a21-9afd-79adf2dad4b3.png)
+![image](https://user-images.githubusercontent.com/85601974/188620041-b083363a-89dc-4642-bb3d-8567139888d6.png)
+
 
 ## Nueva Venta
 ![image](https://user-images.githubusercontent.com/85601974/188613761-ee98d632-d0de-4a47-897c-4e104099ef8b.png)
