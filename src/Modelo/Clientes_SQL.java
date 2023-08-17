@@ -16,12 +16,12 @@ public class Clientes_SQL {
 
     public boolean registrarClientes (Clientes clientes) {
 
-        String SQL = "INSERT INTO clientes (dni_cli,nom_cli,apel_cli,direc_cli,email_cli,telf_cli) VALUES (?,?,?,?,?,?)";
+        
 
         try {
 
             con = conectar.getConnection();
-            pst = con.prepareStatement(SQL);
+            pst = con.prepareStatement("UPDATE clientes SET nom_cli = ?, apel_cli = ?, direc_cli = ?, email_cli = ?, telf_cli = ? where dni_cli = ?");
             pst.setString(1,clientes.getDni());
             pst.setString(2,clientes.getNombre());
             pst.setString(3,clientes.getApellido());
@@ -45,11 +45,11 @@ public class Clientes_SQL {
 
     public  boolean modificarClientes (Clientes clientes) {
 
-        String SQL = "UPDATE clientes SET nom_cli = ?, apel_cli = ?, direc_cli = ?, email_cli = ?, telf_cli = ? where dni_cli = ?";
+        
 
         try {
             con = conectar.getConnection();
-            pst = con.prepareStatement(SQL);
+            pst = con.prepareStatement("UPDATE clientes SET nom_cli = ?, apel_cli = ?, direc_cli = ?, email_cli = ?, telf_cli = ? where dni_cli = ?";);
             pst.setString(1, clientes.getNombre());
             pst.setString(2, clientes.getApellido());
             pst.setString(3, clientes.getDireccion());
@@ -73,11 +73,10 @@ public class Clientes_SQL {
 
     public boolean eliminarClientes (String dni) {
 
-        String SQL = "DELETE FROM clientes where dni_cli = ?";
-
+        
         try {
             con = conectar.getConnection();
-            pst = con.prepareStatement(SQL);
+            pst = con.prepareStatement("DELETE FROM clientes where dni_cli = ?");
             pst.setString(1, dni);
             pst.execute();
             return true;
