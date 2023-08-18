@@ -41,6 +41,20 @@ public class Empleados_SQL {
         }
         return login;
     }
+    private String getEmail() {
+    // Lógica para obtener el valor de email
+    return "example@email.com";
+}
+
+private String getPassword() {
+    // Lógica para obtener el valor de pass
+    return "password123";
+}
+
+private String getRol() {
+    // Lógica para obtener el valor de rol
+    return "admin";
+}
 
     public boolean registrarEmpleados (Empleados empleados){
         String SQL = "INSERT INTO empleados (dni_emp, nom_emp, apel_emp, username_emp, telf_emp, email_emp, pass_emp, conf_pass_emp, cod_rol) VALUES (?,?,?,?,?,?,?,?,?)";
