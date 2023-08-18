@@ -35,27 +35,33 @@ public class Proveedores_SQL {
         }
     }
 
-    public List verProveedores (){
-        List<Proveedores> verProveedores = new ArrayList();
-        String SQL = "SELECT * FROM proveedores";
-        try {
-            con = conectar.getConnection();
-            pst = con.prepareStatement(SQL);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                Proveedores proveedores = new Proveedores();
-                proveedores.setRuc(rs.getString("ruc_prov"));
-                proveedores.setNombre(rs.getString("nom_prov"));
-                proveedores.setTelefono(rs.getString("direc_prov"));
-                proveedores.setDireccion(rs.getString("telf_prov"));
-                verProveedores.add(proveedores);
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
+public List<Proveedores> verProveedores (){
+    List<Proveedores> verProveedores = new ArrayList<>();
+    String SQL = "SELECT ruc_prov, nom_prov, direc_prov, telf_prov FROM proveedores";
+    try {
+        con = conectar.getConnection();
+        pst = con.prepareStatement(SQL);
+        rs = pst.executeQuery();
+        while (rs.next()) {
+            Proveedores proveedor = new Proveedores();
+            proveedor.setRuc(rs.getString("ruc_prov"));
+            proveedor.setNombre(rs.getString("nom_prov"));
+            proveedor.setDireccion(rs.getString("direc_prov"));
+            proveedor.setTelefono(rs.getString("telf_prov"));
+            verProveedores.add(proveedor);
         }
-        return verProveedores;
+    } catch (Exception e) {
+        System.out.println(e.toString());
+    } finally {
+        try {
+            con.close();
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
+    return verProveedores;
+}
+
 
     public boolean eliminarProveedores (String ruc){
         String SQL = "DELETE FROM proveedores WHERE ruc_prov = ? ";
